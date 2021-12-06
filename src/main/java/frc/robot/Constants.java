@@ -10,6 +10,15 @@ public class Constants {
     public static final double kNeoTestMaxOut = 1;
     public static final double kNeoTestMinOut = -1; 
     public static final double kNeoTestMaxRPM = 5000;
+
+
+
+
+
+    public final class TestController{
+        public static final int TestControllerRightTrigger = 3;
+
+    }
     
     
 }

@@ -37,10 +37,14 @@ public class NeoTest extends SubsystemBase{
 
 
 
+
+
     }
 
     public void RunTestMotor(double RunCommand){
-        m_testPIDcontroller.setReference(RunCommand, ControlType.kVelocity);
+        double PIDSpeed = RunCommand*Constants.kNeoTestMaxRPM;
+        
+        m_testPIDcontroller.setReference(PIDSpeed, ControlType.kVelocity);
     }
 
 
