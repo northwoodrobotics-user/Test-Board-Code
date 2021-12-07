@@ -5,13 +5,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.NeoTest;
 import frc.robot.Constants;
+
+import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants.TestController;
 
 
 public class TestMotorCommands extends CommandBase{
-    private final XboxController TestController = new XboxController(0);
+    private final XboxController TestController;
 
-    NeoTest neoTest; 
+
+    private final NeoTest neoTest; 
+
+
+    
+
+public TestMotorCommands(NeoTest testNeo, XboxController controller){
+    neoTest = testNeo;
+    addRequirements(neoTest);
+    TestController = controller;
+    
+}
 
 
 
@@ -21,8 +34,9 @@ public class TestMotorCommands extends CommandBase{
 
 
     public void execute(){
-        if  (TestController.getRawAxis(Constants.TestController.TestControllerRightTrigger) > .1){
-            neoTest.RunTestMotor(TestController.getRawAxis(Constants.TestController.TestControllerRightTrigger));
+       /* if  (TestController.getRawAxis(Constants.TestController.TestControllerRightTrigger) > .1){
+            double CommandedIntakeSpeed = TestController.getRawAxis(Constants.TestController.TestControllerRightTrigger);
+            neoTest.RunTestMotor(CommandedIntakeSpeed);
         }
 
 
@@ -40,6 +54,12 @@ public class TestMotorCommands extends CommandBase{
         if(TestController.getAButton()){
             neoTest.RunTestMotor(1);
         }
+        else {
+            
+        }*/
+        
+        double TestSpeed = TestController.getY(GenericHID.Hand.kLeft);
+        neoTest.RunTestMotor(TestSpeed);
     }
 
 

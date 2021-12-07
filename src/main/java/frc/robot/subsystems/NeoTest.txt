@@ -14,15 +14,17 @@ import frc.robot.Constants;
 public class NeoTest extends SubsystemBase{
     private static NeoTest m_instance;
 
-    double RunCommand;
+    double CommandedPercent;
 
     //Initlailize motors, Encoders, PID loops 
-    private CANSparkMax m_testmotor = new CANSparkMax(Constants.kNeoTestID, MotorType.kBrushless);
+    private CANSparkMax m_testmotor;
     private CANEncoder m_testmotorencoder; 
     private CANPIDController m_testPIDcontroller; 
 
+
     public NeoTest() {
-        super();
+        m_testmotor = new CANSparkMax(Constants.kNeoTestID, MotorType.kBrushless);
+
         m_testmotor.restoreFactoryDefaults();
         m_testPIDcontroller = m_testmotor.getPIDController();
         m_testmotorencoder = m_testmotor.getEncoder();
@@ -35,26 +37,31 @@ public class NeoTest extends SubsystemBase{
         m_testPIDcontroller.setD(Constants.kNEoTestD);
         m_testPIDcontroller.setIZone(Constants.kNeoTestIz);
         m_testPIDcontroller.setFF(Constants.kNeoTestFF);
-        m_testPIDcontroller.setOutputRange(Constants.kNeoTestMinOut, Constants.kNeoTestMaxOut);
+        
+    }
 
 
-
-
-
-
-
+    public static NeoTest getInstance(){
+        if(m_instance == null){
+            m_instance = new NeoTest();
+        }
+        return m_instance;
     }
     public void initialize(){
-        double PIDSpeed = RunCommand*Constants.kNeoTestMaxRPM;
+        m_testPIDcontroller.setOutputRange(Constants.kNeoTestMinOut, Constants.kNeoTestMaxOut);
+        double CommandedSpeed = CommandedPercent*Constants.kNeoTestMaxRPM;
         double RealPercentOutput = m_testmotorencoder.getVelocity()/Constants.kNeoTestMaxRPM;
-        SmartDashboard.putNumber("Percent Commanded", RunCommand);
+        SmartDashboard.putNumber("Percent Commanded", CommandedPercent);
         SmartDashboard.putNumber("Real RPM",m_testmotorencoder.getVelocity() );
-        SmartDashboard.putNumber("Commanded RPM", PIDSpeed);
+        SmartDashboard.putNumber("Commanded RPM", CommandedSpeed);
         SmartDashboard.putNumber("Real Motor Percent Output", RealPercentOutput);
+        
+
 
     }
 
     public void RunTestMotor(double RunCommand){
+        RunCommand =CommandedPercent;
         double PIDSpeed = RunCommand*Constants.kNeoTestMaxRPM;
         
         
