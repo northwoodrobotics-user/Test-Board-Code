@@ -7,12 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,7 +21,6 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  public static RobotContainer robotContainer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -33,25 +28,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    robotContainer = new RobotContainer();
+    
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    ///private static NeoTest m_instance;
-
-    double CommandedPercent;
-
-    //Initlailize motors, Encoders, PID loops 
-    //private CANSparkMax m_testmotor;
-    //private CANEncoder m_testmotorencoder; 
-    //private CANPIDController m_testPIDcontroller; 
-
-
-
-
-
-
   }
 
   /**
@@ -103,9 +84,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-
-  }
+  public void teleopPeriodic() {}
 
   /** This function is called once when the robot is disabled. */
   @Override
